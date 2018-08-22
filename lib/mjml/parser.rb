@@ -20,6 +20,7 @@ module Mjml
     def render
       in_tmp_file = Tempfile.open(["in", ".mjml"]) do |file|
         file.write(input)
+        file.fsync rescue f.flush
         file # return tempfile from block so #unlink works later
       end
       run in_tmp_file.path
